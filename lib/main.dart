@@ -7,6 +7,7 @@ void main() {
   runApp(MaterialApp(
     title: 'Digital Idea',
     theme: ThemeData(
+      fontFamily: 'Poppins',
       primarySwatch: DigitalIdeaTheme.oceanBlue,
     ),
     initialRoute: '/',
