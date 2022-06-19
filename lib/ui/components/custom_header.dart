@@ -1,4 +1,5 @@
 import 'package:digital_idea_website/ui/theme/digital_idea_theme.dart';
+import 'package:digital_idea_website/ui/ui.dart';
 import 'package:flutter/material.dart';
 
 import 'components.dart';
@@ -19,10 +20,29 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       width: double.infinity,
       color: Colors.white,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        DigitalIdeaFullLogo(),
+        GestureDetector(
+            onTap: () async =>
+                await Navigator.pushReplacementNamed(context, '/'),
+            child: const DigitalIdeaMiniLogo()),
         _headerOptions(),
-        Container(
-          child: Text('Orçamento Gratuito'),
+        HoverDetector(
+          builder: (isHovered) {
+            return GestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 40, // isHovered ? 42 : 40,
+                width: 200, //isHovered ? 202 : 200,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(width: .5)),
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: Text('Orçamento Gratuito',
+                      style: DigitalIdeaTextStyles.subtitle1Default),
+                ),
+              ),
+            );
+          },
         )
       ]),
     );
@@ -46,7 +66,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                   ? Border(
                       bottom: BorderSide(color: DigitalIdeaTheme.oceanBlue))
                   : null),
-          child: Text(title),
+          child: Text(title, style: DigitalIdeaTextStyles.subtitle1Default),
         ),
       );
 }

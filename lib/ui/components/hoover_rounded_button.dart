@@ -6,8 +6,9 @@ class HooverRoundedButton extends StatelessWidget {
   final String text;
   final Function() onTap;
   final double? width;
+  final bool fitBox;
   const HooverRoundedButton(this.text,
-      {required this.onTap, this.width, Key? key})
+      {required this.onTap, this.width, this.fitBox = true, Key? key})
       : super(key: key);
 
   @override
@@ -15,6 +16,10 @@ class HooverRoundedButton extends StatelessWidget {
     return SizedBox(
         height: 40,
         width: width ?? 100,
-        child: ElevatedButton(onPressed: onTap, child: Text(text)));
+        child: ElevatedButton(
+            onPressed: onTap,
+            child: FittedBox(
+                fit: fitBox ? BoxFit.fitWidth : BoxFit.none,
+                child: Text(text))));
   }
 }

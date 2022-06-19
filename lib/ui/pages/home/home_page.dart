@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomHeader(height: MediaQuery.of(context).size.height * .2),
+      appBar: CustomHeader(height: MediaQuery.of(context).size.height * .1),
       body: SingleChildScrollView(
           child: Column(children: [
         _headerSection(),
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     style: DigitalIdeaTextStyles.subtitle1Default,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * .01),
-                  HooverRoundedButton(faker.lorem.word(), onTap: () {}),
+                  HooverRoundedButton('Conheça', onTap: () {}),
                 ],
               )
             ],
@@ -59,13 +59,14 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget _carouselSection() => SizedBox(
+  Widget _carouselSection() => Container(
         height: MediaQuery.of(context).size.height * .2,
         width: double.infinity,
-        child: Image.asset(
-          'assets/placeholder-banner.png',
-          fit: BoxFit.cover,
-        ),
+        color: DigitalIdeaTheme.oceanBlue,
+        // child: Image.asset(
+        //   'assets/placeholder-banner.png',
+        //   fit: BoxFit.cover,
+        // ),
       );
 
   Widget _solucoesSection() {
@@ -76,13 +77,17 @@ class _HomePageState extends State<HomePage> {
     };
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .18,
+      //height: MediaQuery.of(context).size.height * .18,
       width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Soluções direcionadas para o seu negócio físico ou digital.'),
-          SizedBox(height: MediaQuery.of(context).size.height * .01),
+          SizedBox(height: MediaQuery.of(context).size.height * .015),
+          Text(
+            'Soluções direcionadas para o seu negócio físico ou digital.',
+            style: DigitalIdeaTextStyles.subtitle1Default,
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .015),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: services.entries
@@ -95,8 +100,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _serviceButton(String title, String routeName) => Container(
         height: 140,
-        width: 60,
-        margin: const EdgeInsets.symmetric(horizontal: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Image.asset(
@@ -107,7 +111,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 5),
             Text(title, style: DigitalIdeaTextStyles.header3Default),
             const SizedBox(height: 5),
-            HooverRoundedButton('Conhecer serviço',
+            HooverRoundedButton('Conheça',
                 onTap: () async =>
                     await Navigator.pushNamed(context, routeName)),
           ],
@@ -130,10 +134,13 @@ class _HomePageState extends State<HomePage> {
                   color: DigitalIdeaTheme.oceanBlue),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .7,
-              child: Image.asset('assets/placeholder-banner.png',
-                  fit: BoxFit.cover),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width * .7,
+                color: DigitalIdeaTheme.oceanBlue,
+                // child: Image.asset('assets/placeholder-banner.png',
+                //     fit: BoxFit.cover),
+              ),
             )
           ],
         ),
@@ -149,11 +156,11 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _perguntasFrequentesSection() => SizedBox(
-        height: MediaQuery.of(context).size.height * .4,
         width: double.infinity,
-        child: Center(
-            child: Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Perguntas frequentes',
                 style: DigitalIdeaTextStyles.header2Default),
@@ -161,18 +168,24 @@ class _HomePageState extends State<HomePage> {
             Text('Tire suas principais dúvidas',
                 style: DigitalIdeaTextStyles.subtitle1(
                     color: DigitalIdeaTheme.oceanBlue)),
-            const SizedBox(height: 10),
-            ExpandedListTile(),
-            const SizedBox(height: 10),
-            ExpandedListTile(),
-            const SizedBox(height: 10),
-            ExpandedListTile(),
+            const SizedBox(height: 20),
+            ExpandedListTile(
+                title: 'Digital Idea é uma agência de mídias sociais?',
+                body: faker.lorem.sentence()),
+            const SizedBox(height: 20),
+            ExpandedListTile(
+                title: 'É uma agência 100% remota?',
+                body: faker.lorem.sentence()),
+            const SizedBox(height: 20),
+            ExpandedListTile(
+                title: 'Onde está sediada?', body: faker.lorem.sentence()),
+            const SizedBox(height: 20),
           ],
-        )),
+        ),
       );
 
   Widget _footer() => Container(
-        height: MediaQuery.of(context).size.height * .4,
+        height: MediaQuery.of(context).size.height * .25,
         width: double.infinity,
         color: DigitalIdeaTheme.oceanBlue,
         child: Center(
@@ -182,26 +195,23 @@ class _HomePageState extends State<HomePage> {
               style: DigitalIdeaTextStyles.header2(color: Colors.white),
             ),
             const SizedBox(height: 15),
-            SizedBox(
-              width: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.instagram,
-                          color: Colors.white)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.facebook,
-                          color: Colors.white)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(FontAwesomeIcons.linkedin,
-                          color: Colors.white)),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(FontAwesomeIcons.instagram,
+                        color: Colors.white)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(FontAwesomeIcons.facebook,
+                        color: Colors.white)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(FontAwesomeIcons.linkedin,
+                        color: Colors.white)),
+              ],
             ),
             const SizedBox(height: 15),
             Text(
