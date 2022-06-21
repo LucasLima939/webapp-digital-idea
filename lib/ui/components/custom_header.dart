@@ -19,32 +19,50 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       height: preferredSize.height,
       width: double.infinity,
       color: Colors.white,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        GestureDetector(
-            onTap: () async =>
-                await Navigator.pushReplacementNamed(context, '/'),
-            child: const DigitalIdeaMiniLogo()),
-        _headerOptions(),
-        HoverDetector(
-          builder: (isHovered) {
-            return GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 40, // isHovered ? 42 : 40,
-                width: 200, //isHovered ? 202 : 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(width: .5)),
-                padding: const EdgeInsets.all(8),
-                child: Center(
-                  child: Text('Orçamento Gratuito',
-                      style: DigitalIdeaTextStyles.subtitle1Default),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Flexible(
+              flex: 2,
+              child: Center(
+                child: GestureDetector(
+                    onTap: () async =>
+                        await Navigator.pushReplacementNamed(context, '/'),
+                    child: const DigitalIdeaMiniLogo()),
+              ),
+            ),
+            Flexible(flex: 4, child: _headerOptions()),
+            Flexible(
+              flex: 2,
+              child: Center(
+                child: HoverDetector.fromSize(
+                  height: 50,
+                  width: 200,
+                  builder: (isHovered) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                                width: 1.3, color: DigitalIdeaTheme.oceanBlue)),
+                        padding: const EdgeInsets.all(15),
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text('ORÇAMENTO GRATUITO',
+                              style: DigitalIdeaTextStyles.subtitle1(
+                                  color: DigitalIdeaTheme.oceanBlue)),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            );
-          },
-        )
-      ]),
+            ),
+          ]),
+        ],
+      ),
     );
   }
 
@@ -59,14 +77,16 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _optionButton(String title, {bool isSelected = false}) => InkWell(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              border: isSelected
-                  ? Border(
-                      bottom: BorderSide(color: DigitalIdeaTheme.oceanBlue))
-                  : null),
-          child: Text(title, style: DigitalIdeaTextStyles.subtitle1Default),
-        ),
+        child: HoverDetector(builder: (isHoovered) {
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                border: isHoovered
+                    ? Border(
+                        bottom: BorderSide(color: DigitalIdeaTheme.oceanBlue))
+                    : null),
+            child: Text(title, style: DigitalIdeaTextStyles.subtitle1Default),
+          );
+        }),
       );
 }

@@ -21,8 +21,8 @@ class DigitalIdeaTextStyles {
       color: DigitalIdeaTheme.oceanBlue,
       fontWeight: FontWeight.bold,
       fontSize: 16);
-  static subtitle1({required Color color}) =>
-      TextStyle(color: color, fontWeight: FontWeight.normal, fontSize: 16);
+  static subtitle1({required Color color, double? fontSize}) => TextStyle(
+      color: color, fontWeight: FontWeight.normal, fontSize: fontSize);
   static get subtitle1Default => const TextStyle(
       color: Colors.black, fontWeight: FontWeight.normal, fontSize: 16);
   static subtitle2({required Color color}) =>
