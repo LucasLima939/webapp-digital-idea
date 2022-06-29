@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'factories/factories.dart';
 import 'ui/ui.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
+
   runApp(MaterialApp(
     title: 'Digital Idea',
     theme: ThemeData(
