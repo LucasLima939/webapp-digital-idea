@@ -31,32 +31,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _headerSection() => SizedBox(
+  Widget _headerSection() => Container(
         height: MediaQuery.of(context).size.height * .2,
         width: double.infinity,
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .01),
         child: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    faker.lorem.sentence(),
-                    style: DigitalIdeaTextStyles.header1Default,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * .01),
-                  Text(
-                    faker.lorem.sentence(),
-                    style: DigitalIdeaTextStyles.subtitle1Default,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * .01),
-                  HooverRoundedButton('Conheça', onTap: () {}),
-                ],
-              )
-            ],
-          ),
-        ),
+            child: Column(
+          children: [
+            Text(
+              faker.lorem.sentence(),
+              style: DigitalIdeaTextStyles.header1Default,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * .01),
+            Text(
+              faker.lorem.sentence(),
+              style: DigitalIdeaTextStyles.subtitle1Default,
+            ),
+            Expanded(child: Container()),
+            HoverRoundedButton('Conheça', onTap: () {}),
+            Expanded(child: Container()),
+          ],
+        )),
       );
 
   Widget _carouselSection() => Container(
@@ -93,29 +88,36 @@ class _HomePageState extends State<HomePage> {
               children: services.entries
                   .map((entry) => _serviceButton(entry.key, entry.value))
                   .toList()),
+          SizedBox(height: MediaQuery.of(context).size.height * .018),
         ],
       ),
     );
   }
 
-  Widget _serviceButton(String title, String routeName) => Container(
-        height: 140,
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/placeholder_icon.png',
-              height: 30,
-              width: 30,
+  Widget _serviceButton(String title, String routeName) => Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 130,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.all(25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/placeholder_icon.png',
+                  height: 30,
+                  width: 30,
+                ),
+                const SizedBox(height: 5),
+                Text(title, style: DigitalIdeaTextStyles.header3Default),
+                Expanded(child: Container()),
+              ],
             ),
-            const SizedBox(height: 5),
-            Text(title, style: DigitalIdeaTextStyles.header3Default),
-            const SizedBox(height: 5),
-            HooverRoundedButton('Conheça',
-                onTap: () async =>
-                    await Navigator.pushNamed(context, routeName)),
-          ],
-        ),
+          ),
+          HoverRoundedButton('Conheça',
+              onTap: () async => await Navigator.pushNamed(context, routeName)),
+        ],
       );
 
   Widget _portfolioSection() => SizedBox(

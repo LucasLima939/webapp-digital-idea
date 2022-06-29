@@ -7,7 +7,7 @@
         "type": "dart",
         "request": "launch",
         "program": "lib/main.dart",
-        "flutterMode": "profile",
+        "flutterMode": "debug",
         "args": [
           "-d",
           "chrome"

@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:digital_idea_website/ui/ui.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
 class ExpandedListTile extends StatefulWidget {
@@ -12,69 +13,100 @@ class ExpandedListTile extends StatefulWidget {
   State<ExpandedListTile> createState() => _ExpandedListTileState();
 }
 
-class _ExpandedListTileState extends State<ExpandedListTile> {
+class _ExpandedListTileState extends State<ExpandedListTile>
+    with TickerProviderStateMixin {
   bool isExpanded = false;
+
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      lowerBound: 1.0,
+      upperBound: 2.0,
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      width: MediaQuery.of(context).size.width * .5,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => setState(() {
-          isExpanded = !isExpanded;
-        }),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            width: MediaQuery.of(context).size.width * .5,
+            height:
+                MediaQuery.of(context).size.height * (_controller.value * .07),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                //_controller.value * 2 * pi
+                if (_controller.isCompleted) {
+                  _controller.reverse();
+                } else {
+                  _controller.forward();
+                }
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.title,
-                    style: DigitalIdeaTextStyles.header3Default,
+                  SizedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: DigitalIdeaTextStyles.header3Default,
+                        ),
+                        Icon(
+                          _controller.isCompleted
+                              ? Icons.arrow_drop_down_outlined
+                              : Icons.arrow_right,
+                          color: DigitalIdeaTheme.oceanBlue,
+                        )
+                      ],
+                    ),
                   ),
-                  Icon(
-                    isExpanded
-                        ? Icons.arrow_drop_down_outlined
-                        : Icons.arrow_right,
-                    color: DigitalIdeaTheme.oceanBlue,
-                  )
+                  Visibility(
+                      visible: _controller.isCompleted,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            widget.body,
+                            style: DigitalIdeaTextStyles.subtitle1Default,
+                          ),
+                        ],
+                      ))
                 ],
               ),
             ),
-            Visibility(
-                visible: isExpanded,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 20),
-                    Text(
-                      widget.body,
-                      style: DigitalIdeaTextStyles.subtitle1Default,
-                    ),
-                  ],
-                ))
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
