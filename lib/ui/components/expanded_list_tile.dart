@@ -55,8 +55,9 @@ class _ExpandedListTileState extends State<ExpandedListTile>
               ],
             ),
             width: MediaQuery.of(context).size.width * .5,
-            height:
-                MediaQuery.of(context).size.height * (_controller.value * .07),
+            height: _controller.value == 1.0
+                ? MediaQuery.of(context).size.height * .05
+                : MediaQuery.of(context).size.height * (_controller.value * .1),
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {

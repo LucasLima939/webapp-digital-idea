@@ -17,18 +17,13 @@ class HoverLargeButton extends StatelessWidget {
         height: 40,
         width: width ?? 100,
         builder: (isHovered) {
-          return ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
-                  backgroundColor:
-                      MaterialStateProperty.all(DigitalIdeaTheme.bulbYellow)),
-              onPressed: onTap,
-              child: FittedBox(
-                  fit: fitBox ? BoxFit.fitWidth : BoxFit.none,
-                  child: Text(
-                    text,
-                    style: const TextStyle(color: Colors.white),
-                  )));
+          return LargeButton(
+              fit: isHovered ? BoxFit.fitWidth : BoxFit.none,
+              onTap: onTap,
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.white),
+              ));
         });
   }
 }

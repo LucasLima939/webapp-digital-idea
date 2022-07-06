@@ -20,13 +20,15 @@ class _HomePageState extends State<HomePage> {
       appBar: CustomHeader(height: MediaQuery.of(context).size.height * .1),
       body: SingleChildScrollView(
           child: Column(children: [
+        SizedBox(height: MediaQuery.of(context).size.height * .03),
         _headerSection(),
+        SizedBox(height: MediaQuery.of(context).size.height * .05),
         _carouselSection(),
-        SizedBox(height: MediaQuery.of(context).size.height * .01),
+        SizedBox(height: MediaQuery.of(context).size.height * .05),
         _solucoesSection(),
-        SizedBox(height: MediaQuery.of(context).size.height * .01),
+        SizedBox(height: MediaQuery.of(context).size.height * .05),
         _portfolioSection(),
-        SizedBox(height: MediaQuery.of(context).size.height * .01),
+        SizedBox(height: MediaQuery.of(context).size.height * .05),
         _perguntasFrequentesSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .01),
         _footer(),
@@ -39,25 +41,40 @@ class _HomePageState extends State<HomePage> {
         width: double.infinity,
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .01),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .4,
-            child: Column(
-              children: [
-                Expanded(child: Container()),
-                Text(
-                  R.strings.homeTitle,
-                  style: DigitalIdeaTextStyles.header1Default,
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: Container()),
+                    Text(
+                      R.strings.homeTitle,
+                      style: DigitalIdeaTextStyles.header1Default,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * .01),
+                    Text(
+                      R.strings.homeSubtitle,
+                      style: DigitalIdeaTextStyles.subtitle2Default,
+                    ),
+                    Expanded(child: Container()),
+                  ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * .01),
-                Text(
-                  R.strings.homeSubtitle,
-                  style: DigitalIdeaTextStyles.subtitle2Default,
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * .05,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * .25,
+                  height: 55,
+                  child: LargeButton(
+                      child: const Text('Leve seu negócio para outro nível!',
+                          style: TextStyle(color: Colors.white)),
+                      onTap: () {}),
                 ),
-                Expanded(child: Container()),
-                HoverLargeButton('Leve seu negócio para outro nível!', width: MediaQuery.of(context).size.width * .35, onTap: () {}),
-                Expanded(child: Container()),
-              ],
-            ),
+              ),
+            ],
           ),
           Image.asset(
             'assets/images/home_image.png',
@@ -68,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _carouselSection() => SizedBox(
-        height: MediaQuery.of(context).size.width * .3,
+        height: MediaQuery.of(context).size.width * .2,
         width: double.infinity,
         child: CarouselSlider(
             options: CarouselOptions(
@@ -101,8 +118,13 @@ class _HomePageState extends State<HomePage> {
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * .015),
           Text(
-            'Soluções direcionadas para o seu negócio físico ou digital.',
+            'Soluções em Marketing Digital',
             style: DigitalIdeaTextStyles.header1Default,
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .015),
+          Text(
+            'O que o Digital Idea faz por você!',
+            style: DigitalIdeaTextStyles.header3Default,
           ),
           SizedBox(height: MediaQuery.of(context).size.height * .015),
           Row(
@@ -117,14 +139,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _serviceButton(String title, String routeName) => Container(
-    margin: const EdgeInsets.symmetric(horizontal: 3),
-    child: Stack(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-                    height: MediaQuery.of(context).size.width / 7.6,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.all(25),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 10,
+              width: MediaQuery.of(context).size.width / 8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -139,11 +160,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             HoverRoundedButton(title,
-            width: MediaQuery.of(context).size.width / 9,
-                onTap: () async => await Navigator.pushNamed(context, routeName)),
+                width: MediaQuery.of(context).size.width / 9,
+                onTap: () async =>
+                    await Navigator.pushNamed(context, routeName)),
           ],
         ),
-  );
+      );
 
   Widget _portfolioSection() => SizedBox(
         width: double.infinity,
@@ -152,15 +174,15 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               'Confira nossos últimos trabalhos',
-              style: DigitalIdeaTextStyles.header2Default,
+              style: DigitalIdeaTextStyles.header1Default,
             ),
             const SizedBox(height: 10),
             Text(
-              'Faça sua empresa aparecer aqui também.',
-              style: DigitalIdeaTextStyles.subtitle1(
+              'Designs feitos pela equipe Digital Idea',
+              style: DigitalIdeaTextStyles.header3(
                   color: DigitalIdeaTheme.oceanBlue),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: MediaQuery.of(context).size.height * .05),
             Container(
               height: MediaQuery.of(context).size.width * .7 * .2,
               width: MediaQuery.of(context).size.width * .7,
@@ -198,16 +220,17 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Perguntas frequentes',
-                style: DigitalIdeaTextStyles.header2Default),
+            Text('Ainda com dúvida?',
+                style: DigitalIdeaTextStyles.header1Default),
             const SizedBox(height: 10),
-            Text('Tire suas principais dúvidas',
+            Text('Veja nosso suporte de dúvidas frequentes',
                 style: DigitalIdeaTextStyles.subtitle1(
                     color: DigitalIdeaTheme.oceanBlue)),
             const SizedBox(height: 20),
             ExpandedListTile(
-                title: 'Digital Idea é uma agência de mídias sociais?',
-                body: faker.lorem.sentence()),
+                title: 'Quem somos e o que fazemos nas mídias?',
+                body:
+                    'Digital Idea é uma agência de marketing digital fundada em 2019 pela designer Beatriz Nogueira (@bea.nogui), com o objetivo de ajudar empresas a se posicionarem online. Nossa missão é ajudar pessoas através de oportunidades e transformar a economia do nosso país, gerando empregos e faturamento para outras empresas.'),
             const SizedBox(height: 20),
             ExpandedListTile(
                 title: 'É uma agência 100% remota?',
