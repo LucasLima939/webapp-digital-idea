@@ -1,3 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:digital_idea_website/ui/constants/home_banners_list.dart';
+import 'package:digital_idea_website/ui/constants/our_services_list.dart';
 import 'package:digital_idea_website/ui/ui.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
@@ -32,43 +35,62 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _headerSection() => Container(
-        height: MediaQuery.of(context).size.height * .2,
+        height: MediaQuery.of(context).size.height * .4,
         width: double.infinity,
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .01),
-        child: Center(
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .4,
             child: Column(
-          children: [
-            Text(
-              faker.lorem.sentence(),
-              style: DigitalIdeaTextStyles.header1Default,
+              children: [
+                Expanded(child: Container()),
+                Text(
+                  R.strings.homeTitle,
+                  style: DigitalIdeaTextStyles.header1Default,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * .01),
+                Text(
+                  R.strings.homeSubtitle,
+                  style: DigitalIdeaTextStyles.subtitle2Default,
+                ),
+                Expanded(child: Container()),
+                HoverLargeButton('Leve seu negócio para outro nível!', width: MediaQuery.of(context).size.width * .35, onTap: () {}),
+                Expanded(child: Container()),
+              ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * .01),
-            Text(
-              faker.lorem.sentence(),
-              style: DigitalIdeaTextStyles.subtitle1Default,
-            ),
-            Expanded(child: Container()),
-            HoverRoundedButton('Conheça', onTap: () {}),
-            Expanded(child: Container()),
-          ],
-        )),
+          ),
+          Image.asset(
+            'assets/images/home_image.png',
+            height: MediaQuery.of(context).size.width * .3,
+            width: MediaQuery.of(context).size.width * .3,
+          )
+        ]),
       );
 
-  Widget _carouselSection() => Container(
-        height: MediaQuery.of(context).size.height * .2,
+  Widget _carouselSection() => SizedBox(
+        height: MediaQuery.of(context).size.width * .3,
         width: double.infinity,
-        color: DigitalIdeaTheme.oceanBlue,
-        // child: Image.asset(
-        //   'assets/placeholder-banner.png',
-        //   fit: BoxFit.cover,
-        // ),
+        child: CarouselSlider(
+            options: CarouselOptions(
+              viewportFraction: 1,
+              autoPlay: true,
+            ),
+            items: homeBannersList
+                .map<Widget>((path) => Image.asset(path,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width))
+                .toList()),
       );
 
   Widget _solucoesSection() {
     final services = {
-      'Websites': '/websites',
+      // 'Websites': '/websites',
       'Gestão de Mídias': '/gestao-de-midias',
-      'Identidade Visual': '/identidade-visual'
+      'Identidade Visual': '/identidade-visual',
+      'Marketing Digital': '/marketing-digital',
+      'Design Inteligente': '/design-inteligente',
+      'Tráfego Pago': '/trafego-pago',
+      'Suporte Especializado': '/contatos',
     };
 
     return SizedBox(
@@ -80,7 +102,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: MediaQuery.of(context).size.height * .015),
           Text(
             'Soluções direcionadas para o seu negócio físico ou digital.',
-            style: DigitalIdeaTextStyles.subtitle1Default,
+            style: DigitalIdeaTextStyles.header1Default,
           ),
           SizedBox(height: MediaQuery.of(context).size.height * .015),
           Row(
@@ -94,36 +116,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _serviceButton(String title, String routeName) => Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            height: 130,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/placeholder_icon.png',
-                  height: 30,
-                  width: 30,
-                ),
-                const SizedBox(height: 5),
-                Text(title, style: DigitalIdeaTextStyles.header3Default),
-                Expanded(child: Container()),
-              ],
+  Widget _serviceButton(String title, String routeName) => Container(
+    margin: const EdgeInsets.symmetric(horizontal: 3),
+    child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+                    height: MediaQuery.of(context).size.width / 7.6,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'assets/icon$routeName.png',
+                    height: MediaQuery.of(context).size.width / 12,
+                    width: MediaQuery.of(context).size.width / 12,
+                    fit: BoxFit.fitHeight,
+                  ),
+                  Expanded(child: Container()),
+                ],
+              ),
             ),
-          ),
-          HoverRoundedButton('Conheça',
-              onTap: () async => await Navigator.pushNamed(context, routeName)),
-        ],
-      );
+            HoverRoundedButton(title,
+            width: MediaQuery.of(context).size.width / 9,
+                onTap: () async => await Navigator.pushNamed(context, routeName)),
+          ],
+        ),
+  );
 
   Widget _portfolioSection() => SizedBox(
-        height: MediaQuery.of(context).size.height * .3,
         width: double.infinity,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Confira nossos últimos trabalhos',
@@ -136,13 +161,22 @@ class _HomePageState extends State<HomePage> {
                   color: DigitalIdeaTheme.oceanBlue),
             ),
             const SizedBox(height: 10),
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width * .7,
-                color: DigitalIdeaTheme.oceanBlue,
-                // child: Image.asset('assets/placeholder-banner.png',
-                //     fit: BoxFit.cover),
+            Container(
+              height: MediaQuery.of(context).size.width * .7 * .2,
+              width: MediaQuery.of(context).size.width * .7,
+              color: DigitalIdeaTheme.oceanBlue,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    autoPlay: true,
+                    disableCenter: true,
+                    aspectRatio: 1,
+                    viewportFraction: 0.2),
+                items: ourServicesList
+                    .map<Widget>((path) => Image.asset(path, fit: BoxFit.cover))
+                    .toList(),
               ),
+              // child: Image.asset('assets/placeholder-banner.png',
+              //     fit: BoxFit.cover),
             )
           ],
         ),

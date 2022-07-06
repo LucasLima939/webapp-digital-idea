@@ -22,6 +22,9 @@ void main() {
       '/websites': (_) => makeWebsitesPage(),
       '/gestao-de-midias': (_) => makeGestaoDeMidiasPage(),
       '/identidade-visual': (_) => makeIdentidadeVisualPage(),
+      '/marketing-digital': (_) => makeIdentidadeVisualPage(),
+      '/design-inteligente': (_) => makeIdentidadeVisualPage(),
+      '/trafego-pago': (_) => makeIdentidadeVisualPage(),
     },
   ));
 }

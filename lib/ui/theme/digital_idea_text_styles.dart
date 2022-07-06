@@ -1,14 +1,13 @@
 import 'package:digital_idea_website/ui/ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DigitalIdeaTextStyles {
   static header1({required Color color}) =>
       TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 24);
-  static get header1Default => TextStyle(
-      color: DigitalIdeaTheme.oceanBlue,
+  static get header1Default => const TextStyle(
+      color: Colors.black87,
       fontWeight: FontWeight.bold,
-      fontSize: 24);
+      fontSize: 32);
   static header2({required Color color}) =>
       TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 18);
   static get header2Default => TextStyle(

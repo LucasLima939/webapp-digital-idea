@@ -18,7 +18,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       height: preferredSize.height,
       width: double.infinity,
-      color: Colors.white,
+      color: DigitalIdeaTheme.oceanBlue,
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
@@ -46,13 +46,14 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                                width: 1.3, color: DigitalIdeaTheme.oceanBlue)),
+                                width: 1.3,
+                                color: DigitalIdeaTheme.bulbYellow)),
                         padding: const EdgeInsets.all(15),
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text('ORÇAMENTO GRATUITO',
                               style: DigitalIdeaTextStyles.subtitle1(
-                                  color: DigitalIdeaTheme.oceanBlue)),
+                                  color: Colors.white)),
                         ),
                       ),
                     );
@@ -76,16 +77,17 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _optionButton(String title, {bool isSelected = false}) => InkWell(
+  Widget _optionButton(String title) => InkWell(
         child: HoverDetector(builder: (isHoovered) {
           return Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
                 border: isHoovered
                     ? Border(
-                        bottom: BorderSide(color: DigitalIdeaTheme.oceanBlue))
+                        bottom: BorderSide(color: DigitalIdeaTheme.bulbYellow))
                     : null),
-            child: Text(title, style: DigitalIdeaTextStyles.subtitle1Default),
+            child: Text(title,
+                style: DigitalIdeaTextStyles.subtitle1(color: Colors.white)),
           );
         }),
       );
