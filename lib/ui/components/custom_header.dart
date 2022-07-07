@@ -19,75 +19,78 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       height: preferredSize.height,
       width: double.infinity,
       color: DigitalIdeaTheme.oceanBlue,
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Flexible(
-              flex: 2,
-              child: Center(
-                child: GestureDetector(
-                    onTap: () async =>
-                        await Navigator.pushReplacementNamed(context, '/'),
-                    child: const DigitalIdeaMiniLogo()),
-              ),
-            ),
-            Flexible(flex: 4, child: _headerOptions()),
-            Flexible(
-              flex: 2,
-              child: Center(
-                child: HoverDetector.fromSize(
-                  height: 50,
-                  width: 200,
-                  builder: (isHovered) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1.3,
-                                color: DigitalIdeaTheme.bulbYellow)),
-                        padding: const EdgeInsets.all(15),
-                        child: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text('ORÇAMENTO GRATUITO',
-                              style: DigitalIdeaTextStyles.subtitle1(
-                                  color: Colors.white)),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ]),
-        ],
-      ),
+      child: LayoutBuilder(builder: (context, constraints) {
+        if (isMobile(context)) {
+          return _buildMobileHeader(context, constraints);
+        } else {
+          return _buildBrowserHeader(context, constraints);
+        }
+      }),
     );
   }
 
-  Widget _headerOptions() {
-    return SizedBox(
-      height: 70,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: options.map((e) => _optionButton(e)).toList(),
+  Widget _buildMobileHeader(BuildContext context, BoxConstraints constraints) {
+    return Container();
+  }
+
+  Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      InkWell(
+          onTap: () async => await Navigator.pushReplacementNamed(context, '/'),
+          child: DigitalIdeaMiniLogo(
+            size: constraints.maxWidth * .1,
+          )),
+      const SizedBox(width: 50),
+      _headerOptions(),
+      SizedBox(
+        width: 300,
+        child: Center(
+          child: HoverDetector.fromSize(
+            height: 50,
+            width: 200,
+            builder: (isHovered) {
+              return InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                          width: 1.3, color: DigitalIdeaTheme.bulbYellow)),
+                  padding: const EdgeInsets.all(15),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text('ORÇAMENTO GRATUITO',
+                        style: DigitalIdeaTextStyles.subtitle1(
+                            color: Colors.white)),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
+    ]);
+  }
+
+  Widget _headerOptions() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: options.map((e) => _optionButton(e)).toList(),
     );
   }
 
   Widget _optionButton(String title) => InkWell(
+        onTap: () {},
         child: HoverDetector(builder: (isHoovered) {
           return Container(
-            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 border: isHoovered
                     ? Border(
                         bottom: BorderSide(color: DigitalIdeaTheme.bulbYellow))
                     : null),
             child: Text(title,
-                style: DigitalIdeaTextStyles.subtitle1(color: Colors.white)),
+                style: DigitalIdeaTextStyles.header3(color: Colors.white)),
           );
         }),
       );

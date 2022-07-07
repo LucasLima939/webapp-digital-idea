@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class DigitalIdeaTextStyles {
   static header1({required Color color}) =>
-      TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 32);
+      TextStyle(color: color, fontWeight: FontWeight.w900, fontSize: 42);
   static header2({required Color color}) =>
-      TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 24);
+      TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 24);
   static header3({required Color color}) =>
       TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 18);
   static subtitle1({required Color color, double fontSize = 18}) => TextStyle(

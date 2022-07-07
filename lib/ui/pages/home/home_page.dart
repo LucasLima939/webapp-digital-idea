@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_idea_website/ui/constants/home_banners_list.dart';
 import 'package:digital_idea_website/ui/constants/our_services_list.dart';
+import 'package:digital_idea_website/ui/pages/home/components/components.dart';
 import 'package:digital_idea_website/ui/ui.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
           child: Column(children: [
         SizedBox(height: MediaQuery.of(context).size.height * .03),
-        _headerSection(),
+        const HeaderSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
         _carouselSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
@@ -29,60 +30,14 @@ class _HomePageState extends State<HomePage> {
         SizedBox(height: MediaQuery.of(context).size.height * .05),
         _portfolioSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
+        _comoFuncionaSection(),
+        SizedBox(height: MediaQuery.of(context).size.height * .05),
         _perguntasFrequentesSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .01),
         _footer(),
       ])),
     );
   }
-
-  Widget _headerSection() => Container(
-        height: MediaQuery.of(context).size.height * .4,
-        width: double.infinity,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .01),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * .4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: Container()),
-                    Text(
-                      R.strings.homeTitle,
-                      style: DigitalIdeaTextStyles.header1Default,
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * .01),
-                    Text(
-                      R.strings.homeSubtitle,
-                      style: DigitalIdeaTextStyles.subtitle2Default,
-                    ),
-                    Expanded(child: Container()),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * .05,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * .25,
-                  height: 55,
-                  child: LargeButton(
-                      child: const Text('Leve seu negócio para outro nível!',
-                          style: TextStyle(color: Colors.white)),
-                      onTap: () {}),
-                ),
-              ),
-            ],
-          ),
-          Image.asset(
-            'assets/images/home_image.png',
-            height: MediaQuery.of(context).size.width * .3,
-            width: MediaQuery.of(context).size.width * .3,
-          )
-        ]),
-      );
 
   Widget _carouselSection() => SizedBox(
         height: MediaQuery.of(context).size.width * .2,
@@ -204,13 +159,11 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget _comoFuncionaSection() => SizedBox(
+  Widget _comoFuncionaSection() => Image.asset(
+        'assets/images/banner-estagios.png',
         width: double.infinity,
         height: MediaQuery.of(context).size.height * .3,
-        child: Image.asset(
-          'assets/como-funciona-section.png',
-          fit: BoxFit.cover,
-        ),
+        fit: BoxFit.cover,
       );
 
   Widget _perguntasFrequentesSection() => SizedBox(

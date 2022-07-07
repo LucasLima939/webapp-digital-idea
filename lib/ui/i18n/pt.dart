@@ -5,6 +5,6 @@ class Pt implements Strings {
   String get homeSubtitle => 'Seja para aparecer no Google, ampliar seu conteúdo no Instagram ou criar campanhas no Facebook\nDigital Idea é a sua melhor opção!';
 
   @override
-  String get homeTitle => 'Te ajudamos a crescer no mercado digital!';
+  String get homeTitle => 'Te ajudamos a crescer\nno mercado digital!';
 
 }
