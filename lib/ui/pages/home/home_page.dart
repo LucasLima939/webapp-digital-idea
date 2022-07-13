@@ -22,11 +22,9 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
           child: Column(children: [
         SizedBox(height: MediaQuery.of(context).size.height * .03),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .45,
-          child: const HeaderSection()),
+        const HeaderSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
-        _carouselSection(),
+        const CarouselSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
         _solucoesSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
@@ -40,21 +38,6 @@ class _HomePageState extends State<HomePage> {
       ])),
     );
   }
-
-  Widget _carouselSection() => SizedBox(
-        height: MediaQuery.of(context).size.width * .2,
-        width: double.infinity,
-        child: CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1,
-              autoPlay: true,
-            ),
-            items: homeBannersList
-                .map<Widget>((path) => Image.asset(path,
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width))
-                .toList()),
-      );
 
   Widget _solucoesSection() {
     final services = {

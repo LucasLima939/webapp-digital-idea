@@ -6,13 +6,16 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: ((context, constraints) {
-      if (isMobile(context)) {
-        return _buildMobileHeader(context, constraints);
-      } else {
-        return _buildBrowserHeader(context, constraints);
-      }
-    }));
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * .5,
+      child: LayoutBuilder(builder: ((context, constraints) {
+        if (isMobile(context)) {
+          return _buildMobileHeader(context, constraints);
+        } else {
+          return _buildBrowserHeader(context, constraints);
+        }
+      })),
+    );
   }
 }
 
@@ -41,7 +44,7 @@ Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
                 SizedBox(height: constraints.maxHeight * .03),
                 Container(
                   constraints: BoxConstraints(
-                    maxHeight: constraints.maxHeight *  .3,
+                    maxHeight: constraints.maxHeight * .3,
                     minHeight: constraints.maxHeight * .1,
                   ),
                   child: Text(
