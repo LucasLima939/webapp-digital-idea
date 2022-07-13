@@ -22,7 +22,9 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
           child: Column(children: [
         SizedBox(height: MediaQuery.of(context).size.height * .03),
-        const HeaderSection(),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .45,
+          child: const HeaderSection()),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
         _carouselSection(),
         SizedBox(height: MediaQuery.of(context).size.height * .05),
