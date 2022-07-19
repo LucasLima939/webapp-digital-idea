@@ -43,7 +43,7 @@ class _CarouselSectionState extends State<CarouselSection> {
                       autoPlay: true,
                       onPageChanged: (index, _) => _currentIndex.value = index,
                     ),
-                    items: homeBannersList
+                    items: DigitalIdeaImages.homeBannersList
                         .map<Widget>((path) => Image.asset(path,
                             fit: BoxFit.cover,
                             width: MediaQuery.of(context).size.width))
@@ -54,7 +54,10 @@ class _CarouselSectionState extends State<CarouselSection> {
                   builder: (context, index, child) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: homeBannersList.asMap().entries.map((entry) {
+                      children: DigitalIdeaImages.homeBannersList
+                          .asMap()
+                          .entries
+                          .map((entry) {
                         return GestureDetector(
                           onTap: () =>
                               _carouselController.animateToPage(entry.key),

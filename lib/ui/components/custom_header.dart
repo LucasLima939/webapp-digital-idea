@@ -1,8 +1,6 @@
-import 'package:digital_idea_website/ui/theme/digital_idea_theme.dart';
 import 'package:digital_idea_website/ui/ui.dart';
 import 'package:flutter/material.dart';
 
-import 'components.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -59,7 +57,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsets.all(15),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child: Text('ORÇAMENTO GRATUITO',
+                    child: Text(R.strings.requestBudgetOffer.toUpperCase(),
                         style: DigitalIdeaTextStyles.subtitle1(
                             color: Colors.white)),
                   ),

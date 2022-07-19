@@ -37,7 +37,7 @@ Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
                 FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Text(
-                    R.strings.homeTitle,
+                    R.strings.homeHeaderTitle,
                     style: DigitalIdeaTextStyles.header1Default,
                   ),
                 ),
@@ -48,7 +48,7 @@ Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
                     minHeight: constraints.maxHeight * .1,
                   ),
                   child: Text(
-                    R.strings.homeSubtitle,
+                    R.strings.homeHeaderSubtitle,
                     style: DigitalIdeaTextStyles.subtitle2Default,
                   ),
                 ),
@@ -60,9 +60,8 @@ Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
                       width: constraints.maxWidth * .25,
                       height: 55,
                       child: LargeButton(
-                          child: const Text(
-                              'Leve seu negócio para outro nível!',
-                              style: TextStyle(color: Colors.white)),
+                          child: Text(R.strings.homeHeaderButtonText,
+                              style: const TextStyle(color: Colors.white)),
                           onTap: () {}),
                     ),
                   ),
@@ -77,7 +76,7 @@ Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
             child: Container(
               padding: const EdgeInsets.all(30),
               child: Image.asset(
-                'assets/images/home_image.png',
+                DigitalIdeaImages.homeImage,
                 fit: BoxFit.fitHeight,
               ),
             ),
