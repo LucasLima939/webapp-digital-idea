@@ -1,4 +1,5 @@
 import 'package:digital_idea_website/ui/ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class FrequentlyAskedQuestionsSection extends StatelessWidget {
@@ -43,9 +44,23 @@ class FrequentlyAskedQuestionsSection extends StatelessWidget {
             Column(
                 mainAxisSize: MainAxisSize.min,
                 children: questions.entries
-                    .map<Widget>((e) => Margin(
+                    .map<Widget>((e) => Container(
+                          width: MediaQuery.of(context).size.width * .5,
                           margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: ExpandedListTile(title: e.key, body: e.value),
+                          child: ExpansionTile(
+                            backgroundColor: Colors.white,
+                            childrenPadding: const EdgeInsets.all(15),
+                            title: Text(
+                              e.key,
+                              style: DigitalIdeaTextStyles.header3Default,
+                            ),
+                            children: [
+                              Text(
+                                e.value,
+                                style: DigitalIdeaTextStyles.subtitle1Default,
+                              )
+                            ],
+                          ),
                         ))
                     .toList()),
           ],
