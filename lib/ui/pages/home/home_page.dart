@@ -1,4 +1,5 @@
 import 'package:digital_idea_website/ui/components/custom_footer.dart';
+import 'package:digital_idea_website/ui/constants/constants.dart';
 import 'package:digital_idea_website/ui/pages/home/components/components.dart';
 import 'package:digital_idea_website/ui/pages/home/components/frequently_asked_questions_section.dart';
 import 'package:digital_idea_website/ui/ui.dart';

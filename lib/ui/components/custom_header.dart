@@ -1,34 +1,73 @@
+import 'package:digital_idea_website/ui/constants/constants.dart';
 import 'package:digital_idea_website/ui/ui.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   final double height;
-  CustomHeader({Key? key, required this.height}) : super(key: key);
-
-  final options = ['início', 'soluções', 'portfólio', 'contato'];
+  final Function()? openEndDrawer;
+  CustomHeader({Key? key, required this.height, this.openEndDrawer})
+      : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: preferredSize.height,
-      width: double.infinity,
-      color: DigitalIdeaTheme.oceanBlue,
-      child: LayoutBuilder(builder: (context, constraints) {
-        if (isMobile(context)) {
-          return _buildMobileHeader(context, constraints);
-        } else {
-          return _buildBrowserHeader(context, constraints);
-        }
-      }),
+    return Scaffold(
+      drawerEnableOpenDragGesture: false,
+      drawer: Drawer(
+        backgroundColor: DigitalIdeaTheme.oceanBlue,
+        child: Column(
+            children:
+                headerOptions.map((o) => ListTile(title: Text(o))).toList()),
+      ),
+      body: Container(
+        height: preferredSize.height,
+        width: double.infinity,
+        color: DigitalIdeaTheme.oceanBlue,
+        child: LayoutBuilder(builder: (context, constraints) {
+          if (isMobile(context)) {
+            return _buildMobileHeader(context, constraints);
+          } else {
+            return _buildBrowserHeader(context, constraints);
+          }
+        }),
+      ),
     );
   }
 
+  openDialog(BuildContext context) {
+    showDialog(
+      barrierColor: Colors.transparent,
+        context: context,
+        builder: (_) => Padding(
+          padding: EdgeInsets.only(top: preferredSize.height),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: headerOptions
+                  .map((o) => Material(child: ListTile(title: Text(o), tileColor: Colors.white)))
+                  .toList()),
+        ));
+  }
+
   Widget _buildMobileHeader(BuildContext context, BoxConstraints constraints) {
-    return Container();
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          left: 20,
+          child: GestureDetector(
+              onTap: () => openDialog(context),
+              child: const Icon(Icons.menu, color: Colors.white)),
+        ),
+        InkWell(
+            onTap: () async =>
+                await Navigator.pushReplacementNamed(context, '/'),
+            child: DigitalIdeaMiniLogo(
+              size: constraints.maxWidth * .1,
+            )),
+      ],
+    );
   }
 
   Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) {
@@ -73,7 +112,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget _headerOptions() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: options.map((e) => _optionButton(e)).toList(),
+      children: headerOptions.map((e) => _optionButton(e)).toList(),
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:digital_idea_website/ui/ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FrequentlyAskedQuestionsSection extends StatelessWidget {
   const FrequentlyAskedQuestionsSection({Key? key}) : super(key: key);

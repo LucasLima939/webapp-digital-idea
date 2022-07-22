@@ -20,7 +20,11 @@ class HeaderSection extends StatelessWidget {
 }
 
 Widget _buildMobileHeader(BuildContext context, BoxConstraints constraints) =>
-    Expanded(child: Container(color: Colors.red));
+    Row(children: [
+      Expanded(child: Container()),
+      const DigitalIdeaFullLogo(),
+      Expanded(child: Container()),
+    ]);
 
 Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
     Center(
