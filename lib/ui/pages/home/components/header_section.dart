@@ -20,11 +20,34 @@ class HeaderSection extends StatelessWidget {
 }
 
 Widget _buildMobileHeader(BuildContext context, BoxConstraints constraints) =>
-    Row(children: [
-      Expanded(child: Container()),
-      const DigitalIdeaFullLogo(),
-      Expanded(child: Container()),
-    ]);
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: constraints.maxWidth * .05),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+        Text(
+          R.strings.homeHeaderTitle,
+          style: DigitalIdeaTextStyles.header1Default.copyWith(fontSize: 32),
+        ),
+        SizedBox(height: constraints.maxHeight * .06),
+        Text(
+          R.strings.homeHeaderSubtitle,
+          style: DigitalIdeaTextStyles.subtitle2Default,
+        ),
+        SizedBox(height: constraints.maxHeight * .1),
+        SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: LargeButton(
+              child: Text(R.strings.homeHeaderButtonText,
+                  style: const TextStyle(color: Colors.white)),
+              onTap: () {}),
+        ),
+        SizedBox(height: constraints.maxHeight * .15),
+      ]),
+    );
 
 Widget _buildBrowserHeader(BuildContext context, BoxConstraints constraints) =>
     Center(
